@@ -1,10 +1,16 @@
-﻿'use client';
+'use client';
 
 import { Suspense } from 'react';
 import PostProcessing from './effects/PostProcessing';
 import ActOrchestrator from './scenes/ActOrchestrator';
 
+import { useTexture } from '@react-three/drei';
+
 export default function Scene() {
+  // Preload textures to prevent Suspense fallback when switching acts
+  useTexture.preload('/media/chapter1/photo1.jpg');
+  useTexture.preload('/media/chapter1/photo2.jpg');
+  
   return (
     <>
       <color attach="background" args={['#0B0A09']} />

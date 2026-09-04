@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useStore } from '@/store/useStore';
 import { useThree } from '@react-three/fiber';
@@ -62,9 +62,9 @@ export default function ActThree() {
         onClick={() => { if (canClick) nextStep(); }}
         onPointerOver={() => { if (canClick) document.body.style.cursor = 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
-        visible={false}
       >
         <planeGeometry args={[100, 100]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
 
       <Html position={[0, 0, 0]} center zIndexRange={[50, 0]}>

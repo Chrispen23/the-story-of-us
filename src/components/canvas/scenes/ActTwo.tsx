@@ -15,6 +15,10 @@ export default function ActTwo() {
   const groupRef = useRef<THREE.Group>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
+  const p1Ref = useRef<THREE.Group>(null);
+  const p2Ref = useRef<THREE.Group>(null);
+  const noteRef = useRef<THREE.Group>(null);
+
   // Initialize camera position for this act
   useEffect(() => {
     gsap.to(camera.position, { x: 0, y: 0, z: 8, duration: 2, ease: 'power2.out' });
@@ -53,11 +57,9 @@ export default function ActTwo() {
 
   // Object choreography based on steps
   useEffect(() => {
-    if (!groupRef.current) return;
-    
-    const p1 = groupRef.current.getObjectByName('photo1');
-    const p2 = groupRef.current.getObjectByName('photo2');
-    const note = groupRef.current.getObjectByName('note1');
+    const p1 = p1Ref.current;
+    const p2 = p2Ref.current;
+    const note = noteRef.current;
     
     if (narrativeStep === 0) {
       if (p1) gsap.to(p1.position, { y: 0, z: 0, duration: 2, ease: 'power2.out' });
@@ -85,7 +87,7 @@ export default function ActTwo() {
       if (textRef.current) gsap.to(textRef.current, { opacity: 0, duration: 1 });
     }
 
-  }, [narrativeStep]);
+  }, [narrativeStep, setAct, camera]);
 
   return (
     <group ref={groupRef}>
@@ -95,7 +97,7 @@ export default function ActTwo() {
       </Html>
 
       {/* Memory Objects */}
-      <group name="photo1" position={[0, -5, -5]}>
+      <group ref={p1Ref} position={[0, -5, -5]}>
          <InteractivePhoto 
            url="/media/chapter1/photo1.jpg" 
            active={narrativeStep === 0} 
@@ -103,7 +105,7 @@ export default function ActTwo() {
          />
       </group>
 
-      <group name="photo2" position={[0, -5, -5]}>
+      <group ref={p2Ref} position={[0, -5, -5]}>
          <InteractivePhoto 
            url="/media/chapter1/photo2.jpg" 
            active={narrativeStep === 1} 
@@ -112,7 +114,7 @@ export default function ActTwo() {
          />
       </group>
 
-      <group name="note1" position={[0, 0, -5]}>
+      <group ref={noteRef} position={[0, 0, -5]}>
          <HiddenNote 
            text="You probably don't remember this..." 
            active={narrativeStep === 2} 

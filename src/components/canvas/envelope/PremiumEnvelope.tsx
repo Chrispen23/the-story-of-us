@@ -199,6 +199,19 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
 
   return (
     <>
+      {/* Invisible plane to catch clicks anywhere when opened */}
+      {isOpened && (
+        <mesh 
+          position={[0, 0, 3]} 
+          onClick={handleLetterClick}
+          onPointerOver={() => document.body.style.cursor = 'pointer'}
+          onPointerOut={() => document.body.style.cursor = 'auto'}
+        >
+          <planeGeometry args={[100, 100]} />
+          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+        </mesh>
+      )}
+
       {/* ENVIRONMENT & LIGHTING */}
       <color attach="background" args={['#0F0D0C']} />
       
@@ -245,7 +258,7 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
             </mesh>
             <Html transform position={[0, 0, 0.003]} distanceFactor={2} zIndexRange={[100, 0]}>
               <div 
-                className="w-[450px] h-[280px] flex flex-col items-center justify-center pointer-events-none opacity-90 p-8 text-center transition-opacity duration-1000"
+                className={`w-[450px] h-[280px] flex flex-col items-center justify-center pointer-events-none p-8 text-center transition-opacity duration-1000 ${isOpened ? 'opacity-90' : 'opacity-0'}`}
                 id="letter-content"
               >
                 <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-muted-taupe mb-6 border-b border-muted-taupe/30 pb-2">05 September 2023</p>
