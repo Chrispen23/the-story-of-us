@@ -1,0 +1,51 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-obsidian: #0B0A09;
+  --color-deep-espresso: #171311;
+  --color-aged-ivory: #E9E0D1;
+  --color-warm-parchment: #D9CDBA;
+  --color-soft-ivory: #F3EEE5;
+  --color-muted-taupe: #AFA497;
+  --color-muted-champagne: #C8A875;
+  --color-deep-burgundy: #5A2630;
+  --color-burnt-terracotta: #A85E3F;
+  --color-dusty-rose: #A98280;
+
+  --font-serif-display: var(--font-instrument), ui-serif, Georgia, serif;
+  --font-serif-text: var(--font-cormorant), ui-serif, Georgia, serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-script), cursive;
+
+  --animate-fade-in-slow: fade-in-slow 3s ease-in-out forwards;
+
+  @keyframes fade-in-slow {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+body {
+  background-color: var(--color-obsidian);
+  color: var(--color-soft-ivory);
+}
