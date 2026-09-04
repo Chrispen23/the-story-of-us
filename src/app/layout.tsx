@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { Instrument_Serif, Cormorant_Garamond, Manrope, Great_Vibes } from 'next/font/google';
 import './globals.css';
 import { clsx } from 'clsx';

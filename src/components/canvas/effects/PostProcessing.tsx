@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { EffectComposer, Noise, Vignette, DepthOfField } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';

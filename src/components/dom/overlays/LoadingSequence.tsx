@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useProgress } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -8,8 +8,8 @@ import { useStore } from '@/store/useStore';
 export default function LoadingSequence() {
   const { progress, active, total } = useProgress();
   const [showButton, setShowButton] = useState(false);
-  const chapter = useStore((state) => state.chapter);
-  const setChapter = useStore((state) => state.setChapter);
+  const currentAct = useStore((state) => state.currentAct);
+  const setAct = useStore((state) => state.setAct);
 
   useEffect(() => {
     // If progress reaches 100, or if there's nothing to load at all (total === 0 after a short delay)
@@ -19,8 +19,8 @@ export default function LoadingSequence() {
     }
   }, [progress, active, total]);
 
-  // Loading sequence is only for chapter 0
-  if (chapter !== 0) return null;
+  // Loading sequence is only for the loading state
+  if (currentAct !== 'loading') return null;
 
   return (
     <AnimatePresence>
@@ -51,7 +51,7 @@ export default function LoadingSequence() {
           <motion.button
             animate={{ opacity: showButton ? 1 : 0, y: showButton ? 0 : 20 }}
             transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-            onClick={() => setChapter(1)}
+            onClick={() => setAct('prologue')}
             disabled={!showButton}
             className="mt-24 px-10 py-4 font-sans text-xs tracking-[0.2em] uppercase text-obsidian bg-soft-ivory hover:bg-white transition-all duration-700 ease-out disabled:pointer-events-none"
           >

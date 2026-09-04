@@ -1,18 +1,15 @@
-'use client';
+﻿'use client';
 
 import { Suspense } from 'react';
-import CameraRig from './camera/CameraRig';
 import PostProcessing from './effects/PostProcessing';
-import TimelineWorld from './scenes/TimelineWorld';
-import { useStore } from '@/store/useStore';
+import ActOrchestrator from './scenes/ActOrchestrator';
 
 export default function Scene() {
-  const chapter = useStore((state) => state.chapter);
-
   return (
     <>
       <color attach="background" args={['#0B0A09']} />
-      <fog attach="fog" args={['#0B0A09', 10, 25]} />
+      {/* Fog ensures distant objects fade naturally into darkness */}
+      <fog attach="fog" args={['#0B0A09', 5, 20]} />
       
       {/* Cinematic global lighting */}
       <ambientLight intensity={1.2} color="#D9CDBA" />
@@ -31,10 +28,9 @@ export default function Scene() {
         penumbra={1} 
       />
 
-      <CameraRig />
       <PostProcessing />
 
-      {chapter >= 1 && <TimelineWorld />}
+      <ActOrchestrator />
     </>
   );
 }

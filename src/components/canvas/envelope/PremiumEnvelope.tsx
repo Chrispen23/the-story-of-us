@@ -177,10 +177,24 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
     // PHASE 5: Camera pushes to letter
     tl.to(camera.position, { y: 2.8, z: 4.5, duration: 2.5, ease: 'power2.inOut' }, 2.4);
     
-    // PHASE 6: Transition to memory constellation
-    tl.add(() => {
-      onComplete();
-    }, 4.5);
+    // We do NOT call onComplete automatically here anymore.
+    // The user must interact with the letter to continue.
+  };
+
+  const handleLetterClick = (e: any) => {
+    e.stopPropagation();
+    if (!isOpened) return;
+    
+    // Start audio if not already started
+    useStore.getState().startAudio();
+    
+    const htmlEl = document.getElementById('letter-content');
+    if (htmlEl) htmlEl.style.opacity = '0';
+
+    // Push camera through the letter into the darkness
+    gsap.to(camera.position, { z: -5, duration: 2, ease: 'power3.inOut', onComplete: () => {
+      if (onComplete) onComplete();
+    }});
   };
 
   return (
@@ -218,19 +232,34 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
           <extrudeGeometry args={[shapes.back, extrudeSettings]} />
         </mesh>
 
-        {/* Letter (Inside) */}
-        <group ref={letterRef} position={[0, -0.1, 0.01]}>
-          <mesh castShadow receiveShadow material={letterMat}>
-            <extrudeGeometry args={[shapes.back, { ...extrudeSettings, depth: 0.001 }]} />
-          </mesh>
-          <Html transform position={[0, 0, 0.003]} distanceFactor={2} zIndexRange={[100, 0]}>
-            <div className="w-[450px] h-[280px] flex flex-col items-center justify-center pointer-events-none opacity-90 p-8">
-              <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-muted-taupe mb-6 border-b border-muted-taupe/30 pb-2">05 September 2023</p>
-              <h1 style={{ fontFamily: 'var(--font-script)' }} className="text-7xl text-deep-espresso drop-shadow-sm leading-tight">Viviana</h1>
-              <p className="font-serif-text italic text-lg text-deep-espresso/70 mt-6">The beginning of us.</p>
-            </div>
-          </Html>
-        </group>
+          {/* Letter (Inside) */}
+          <group 
+            ref={letterRef} 
+            position={[0, -0.1, 0.01]}
+            onClick={handleLetterClick}
+            onPointerOver={(e) => { if (isOpened) document.body.style.cursor = 'pointer'; }}
+            onPointerOut={(e) => { if (isOpened) document.body.style.cursor = 'auto'; }}
+          >
+            <mesh castShadow receiveShadow material={letterMat}>
+              <extrudeGeometry args={[shapes.back, { ...extrudeSettings, depth: 0.001 }]} />
+            </mesh>
+            <Html transform position={[0, 0, 0.003]} distanceFactor={2} zIndexRange={[100, 0]}>
+              <div 
+                className="w-[450px] h-[280px] flex flex-col items-center justify-center pointer-events-none opacity-90 p-8 text-center transition-opacity duration-1000"
+                id="letter-content"
+              >
+                <p className="font-sans text-[10px] uppercase tracking-[0.3em] text-muted-taupe mb-6 border-b border-muted-taupe/30 pb-2">05 September 2023</p>
+                <p className="font-serif-text italic text-2xl text-deep-espresso/80 mt-2 leading-relaxed">
+                  Somewhere between strangers<br />and something more...
+                </p>
+                {isOpened && (
+                  <p className="font-sans text-[8px] uppercase tracking-[0.2em] text-muted-taupe/50 mt-12 animate-pulse">
+                    Click to continue
+                  </p>
+                )}
+              </div>
+            </Html>
+          </group>
 
         {/* Left Flap */}
         <mesh position={[0, 0, 0.02]} castShadow receiveShadow material={paperDarkMat}>

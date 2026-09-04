@@ -1,20 +1,18 @@
-'use client';
+﻿'use client';
 
-import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 import * as THREE from 'three';
-import { useStore } from '@/store/useStore';
 
 export default function CameraRig() {
-  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const rigRef = useRef<THREE.Group>(null);
   
   // A subtle noise or breathing effect for the camera to keep it alive
   useFrame((state) => {
-    // We will hook this up to GSAP later for scroll choreography.
-    // For now, just add a tiny cinematic breath.
-    state.camera.position.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
-    state.camera.position.y = Math.cos(state.clock.elapsedTime * 0.15) * 0.05;
-    state.camera.lookAt(0, 0, 0);
+    // Instead of moving the camera directly, we can move a rig holding the camera, 
+    // but GSAP is animating the camera position. To avoid conflicts, we just don't do anything 
+    // or we apply breathing to rotation slightly.
+    state.camera.rotation.z = Math.sin(state.clock.elapsedTime * 0.1) * 0.005;
   });
 
   return null;
