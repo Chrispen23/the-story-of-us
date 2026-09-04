@@ -28,7 +28,8 @@ export default function PhysicalPhoto({
   const [hovered, setHovered] = useState(false);
 
   // Get image aspect ratio
-  const aspect = texture.image ? texture.image.width / texture.image.height : 1;
+  const img = texture.image as any;
+  const aspect = img ? img.width / img.height : 1;
   const width = aspect > 1 ? 3 : 3 * aspect;
   const height = aspect > 1 ? 3 / aspect : 3;
 

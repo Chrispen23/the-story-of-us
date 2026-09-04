@@ -36,7 +36,8 @@ export default function PhysicalVideo({ url, position = [0, 0, 0], rotation = [0
   });
 
   // Calculate dimensions based on video aspect ratio
-  const aspect = videoTexture?.image ? videoTexture.image.videoWidth / videoTexture.image.videoHeight : 1;
+  const img = videoTexture?.image as any;
+  const aspect = img ? img.videoWidth / img.videoHeight : 1;
   const width = aspect > 1 ? 4 : 3 * aspect;
   const height = aspect > 1 ? 4 / aspect : 3;
 

@@ -255,13 +255,17 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
           
           {/* Wax Seal - Attached to Flap */}
           <mesh ref={sealRef} position={[0, -1.5, 0.02]} castShadow receiveShadow material={sealMat}>
-            {/* Organic, slightly squashed shape for realism */}
-            <cylinderGeometry args={[0.35, 0.36, 0.04, 32]} rotation={[Math.PI/2, 0, 0]} />
-            {/* Subtle inner depression mimicking a stamp */}
-            <mesh position={[0, 0, 0.02]}>
-               <cylinderGeometry args={[0.25, 0.3, 0.02, 32]} rotation={[Math.PI/2, 0, 0]} />
-               <meshPhysicalMaterial color="#4A1E26" roughness={0.3} metalness={0.2} />
-            </mesh>
+            <group rotation={[Math.PI/2, 0, 0]}>
+              {/* Organic, slightly squashed shape for realism */}
+              <mesh material={sealMat} castShadow receiveShadow>
+                <cylinderGeometry args={[0.35, 0.36, 0.04, 32]} />
+              </mesh>
+              {/* Subtle inner depression mimicking a stamp */}
+              <mesh position={[0, -0.02, 0]}>
+                 <cylinderGeometry args={[0.25, 0.3, 0.02, 32]} />
+                 <meshPhysicalMaterial color="#4A1E26" roughness={0.3} metalness={0.2} />
+              </mesh>
+            </group>
           </mesh>
         </group>
 
