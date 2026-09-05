@@ -130,15 +130,16 @@ export default function ActFour() {
         <Html transform position={[0, 0, 0.01]} distanceFactor={2} zIndexRange={[100, 0]}>
           <div 
             ref={letterHtmlRef}
-            className="w-[500px] h-[750px] opacity-0 flex flex-col items-center justify-center p-12 text-center pointer-events-none"
+            className="w-[500px] h-[750px] opacity-0 flex flex-col items-center justify-start p-12 text-center pointer-events-auto overflow-y-auto custom-scrollbar"
             style={{ 
               fontFamily: 'var(--font-serif)',
               color: '#3A2E28',
               background: 'transparent'
             }}
+            onClick={(e) => e.stopPropagation()}
           >
-              <h2 className="text-3xl mb-4 text-center" style={{ fontFamily: 'var(--font-script)' }}>Dear Best Friend,</h2>
-              <div className="text-[11px] leading-snug space-y-2 flex-1 text-deep-espresso/90 text-left">
+              <h2 className="text-3xl mb-6 mt-2 text-center flex-shrink-0" style={{ fontFamily: 'var(--font-script)' }}>Dear Best Friend,</h2>
+              <div className="text-[11.5px] leading-relaxed space-y-3 flex-1 text-deep-espresso/90 text-left">
                 <p>This is for you. I cannot measure how much you have done for me and things you have sacrificed for me, your impact in my life is visible, your love is visible, your care is visible, your support is visible, your value is visible and I don't think I can match that value. Since the day we met on the 5th of September 2023, you have impacted me in a big way, your life speaks so much of Christ's transformation, and I admire that.</p>
                 
                 <p>You have been one of the few people to support me in everything, without ridicule and with no sense of half hearted-ness (if that's a word😂), and for that, I appreciate your value, your worth. Sure I cannot see it fully how God sees it, but I see the picture, and I thank God for allowing me to see it, its a beautiful picture, truly and genuinely crafted and painted by God Himself. I can only admire that picture and show love in the many ways I can, even if I am far, I still remember. Psalms 7:17 calls me to give thanks to the Lord due to His righteousness, and I thank God for you, for thinking about you, for crafting you, for making you who you are, for creating you, for protecting you, for everything He has done for you, God is really great to you and I am thankful to Him.</p>
@@ -151,12 +152,18 @@ export default function ActFour() {
 
                 <p>I would really love to call you my amor, it's no pressure, I just want to convey my feelings to you, this is where I stand, I hope you get to enjoy this small gesture I prepared for you. I will end it here before it ends up a whole book website😂</p>
                 
-                <p className="mt-4 text-right italic font-serif text-sm">Love from Chris (Your Best Friend)</p>
+                <p className="mt-6 text-right italic font-serif text-sm">Love from Chris (Your Best Friend)</p>
               </div>
             {canClick && narrativeStep === PRE_LINES.length && (
-              <div className="animate-pulse text-deep-espresso/40 text-xs tracking-widest uppercase font-sans mt-8">
-                Click to fold away
-              </div>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  nextStep();
+                }}
+                className="animate-pulse flex-shrink-0 text-deep-espresso/60 hover:text-deep-espresso text-xs tracking-widest uppercase font-sans mt-10 mb-4 py-3 px-6 border border-deep-espresso/20 rounded cursor-pointer transition-colors"
+              >
+                Click here to fold away
+              </button>
             )}
           </div>
         </Html>
