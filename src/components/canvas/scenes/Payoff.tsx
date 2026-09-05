@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
@@ -21,7 +21,7 @@ export default function Payoff() {
 
   return (
     <group>
-      <Html position={[0, 0, 0]} center zIndexRange={[50, 0]}>
+      <Html position={[0, 0, 0]} center>
         <div 
           ref={textRef}
           className="w-[800px] text-center flex flex-col items-center gap-12 opacity-0 pointer-events-none"

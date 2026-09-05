@@ -22,8 +22,10 @@ export default function ActFour() {
   const [canClick, setCanClick] = useState(false);
 
   useEffect(() => {
-    camera.position.set(0, 0, 5);
+    // Set initial position and slowly push in
+    camera.position.set(0, 0, 8);
     camera.rotation.set(0, 0, 0);
+    gsap.to(camera.position, { z: 5, duration: 10, ease: 'power1.out' });
     
     // Hide letter initially
     if (letterMeshRef.current) {
@@ -89,7 +91,7 @@ export default function ActFour() {
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
 
-      <Html position={[0, 0, 0]} center zIndexRange={[50, 0]}>
+      <Html position={[0, 0, 0]} center>
         <div className="w-[800px] text-center flex flex-col gap-8 pointer-events-none">
           <div ref={textRef} className="opacity-0 font-serif-text italic text-3xl text-white/90 drop-shadow-md tracking-wide" />
           {canClick && narrativeStep < PRE_LINES.length && (
