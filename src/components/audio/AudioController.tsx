@@ -44,13 +44,22 @@ export default function AudioController() {
   useEffect(() => {
     if (!audioRef.current) return;
     
-    // Example: quiet down during the letter (Act 4)
     if (currentAct === 'act4') {
       let vol = audioRef.current.volume;
       const interval = setInterval(() => {
-        if (vol > 0.15) {
+        if (vol > 0.3) {
           vol -= 0.05;
-          if (audioRef.current) audioRef.current.volume = Math.max(vol, 0.15);
+          if (audioRef.current) audioRef.current.volume = Math.max(vol, 0.3);
+        } else {
+          clearInterval(interval);
+        }
+      }, 300);
+    } else {
+      let vol = audioRef.current.volume;
+      const interval = setInterval(() => {
+        if (vol < 0.5) {
+          vol += 0.05;
+          if (audioRef.current) audioRef.current.volume = Math.min(vol, 0.5);
         } else {
           clearInterval(interval);
         }

@@ -34,24 +34,21 @@ export default function ActTwo() {
       duration: 0.5, 
       onComplete: () => {
         if (textRef.current) {
-          switch(narrativeStep) {
-            case 0:
-              textRef.current.innerHTML = "<p>05 September 2023</p><p style='font-family: var(--font-serif)'>I didn't know it yet, but this would become<br/>one of the dates I'd never forget.</p>";
-              break;
-            case 1:
-              textRef.current.innerHTML = "<p style='font-family: var(--font-serif)'>We were just friends.</p><p style='font-family: var(--font-serif)'>At least, that's what we called it.</p>";
-              break;
-            case 2:
-              textRef.current.innerHTML = ""; // Let the note speak
-              break;
-            case 3:
-              textRef.current.innerHTML = "<p style='font-family: var(--font-serif)'>Some memories don't look important when you're living them.</p><p style='font-family: var(--font-serif)'>Funny how that changes.</p>";
-              break;
-          }
-          
-          if (narrativeStep < 4) {
-            gsap.to(textRef.current, { opacity: 1, duration: 1 });
-          }
+            switch(narrativeStep) {
+              case 0:
+                textRef.current.innerHTML = "<p>05 September 2023</p><p style='font-family: var(--font-serif)'>I didn't know it yet, but this would become<br/>one of the dates I'd never forget.</p>";
+                break;
+              case 1:
+                textRef.current.innerHTML = "<p style='font-family: var(--font-serif)'>We were just friends.</p><p style='font-family: var(--font-serif)'>At least, that's what we called it.</p>";
+                break;
+              case 2:
+                textRef.current.innerHTML = ""; // Let the note speak
+                break;
+            }
+            
+            if (narrativeStep < 3) {
+              gsap.to(textRef.current, { opacity: 1, duration: 1 });
+            }
         }
       }
     });
@@ -88,7 +85,7 @@ export default function ActTwo() {
       if (p2) gsap.to(p2.position, { y: -10, duration: 2, ease: 'power2.in', delay: 0.2 });
       if (note) gsap.to(note.position, { y: -10, duration: 2, ease: 'power2.in', delay: 0.4 });
     }
-    else if (narrativeStep === 4) {
+    else if (narrativeStep === 3) {
       // Camera pushes past into the darkness to transition to Act 3
       gsap.to(camera.position, { z: -10, duration: 3, ease: 'power2.inOut', onComplete: () => {
         setAct('act3');
@@ -100,8 +97,8 @@ export default function ActTwo() {
 
   return (
     <group ref={groupRef}>
-      {/* Invisible plane to progress past step 3 */}
-      {narrativeStep === 3 && (
+      {/* Invisible plane to progress past step 2 */}
+      {narrativeStep === 2 && (
         <mesh 
           position={[0, 0, 0]} 
           onClick={() => nextStep()}

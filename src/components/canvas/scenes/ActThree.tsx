@@ -10,8 +10,7 @@ import Image from 'next/image';
 const LINES = [
   "The conversations that lasted longer than they needed to.",
   "The ordinary days that somehow became my favorites.",
-  "Some memories don't look important when you're living them.",
-  "But they were."
+  "Some memories don't look important when you're living them.<br/>Funny how that changes."
 ];
 
 export default function ActThree() {
@@ -39,7 +38,7 @@ export default function ActThree() {
       
       if (narrativeStep < LINES.length) {
         if (narrativeStep === 0) {
-          textRef.current.innerText = LINES[narrativeStep];
+          textRef.current.innerHTML = LINES[narrativeStep];
           gsap.to(textRef.current, { opacity: 1, duration: 2, delay: 0.5 });
           if (images0Ref.current) {
             gsap.to(images0Ref.current, { opacity: 1, duration: 2, delay: 0.5, onComplete: () => setCanClick(true) });
@@ -54,7 +53,7 @@ export default function ActThree() {
 
           setTimeout(() => {
             if (textRef.current) {
-              textRef.current.innerText = LINES[narrativeStep];
+              textRef.current.innerHTML = LINES[narrativeStep];
               gsap.to(textRef.current, { opacity: 1, duration: 2, delay: 0.5 });
               
               if (narrativeStep === 2 && images2Ref.current) {
@@ -90,32 +89,38 @@ export default function ActThree() {
       </mesh>
 
       <Html position={[0, 0, 0]} center>
-        <div className="w-[1000px] text-center flex flex-col items-center gap-12 pointer-events-none">
-          <div ref={textRef} className="opacity-0 font-serif-text italic text-3xl text-white/90 drop-shadow-md tracking-wide" />
+        <div className="w-[1000px] h-[800px] text-center flex flex-col items-center justify-center gap-12 pointer-events-none relative">
           
-          <div ref={images0Ref} className="opacity-0 absolute top-24 left-0 w-full flex justify-center gap-8">
-             <div className="relative w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-2deg]">
+          <div ref={images0Ref} className="opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex justify-between items-center pointer-events-none">
+             <div className="relative w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-8deg]">
                 <Image src="/media/images/act3/chat1.jpeg" alt="Chat 1" fill className="object-cover" />
              </div>
-             <div className="relative w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[3deg] mt-8">
+             <div className="relative w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[6deg]">
                 <Image src="/media/images/act3/chat2.jpeg" alt="Chat 2" fill className="object-cover" />
              </div>
           </div>
 
-          <div ref={images2Ref} className="opacity-0 absolute top-24 left-0 w-full flex justify-center gap-6">
-             <div className="relative w-[300px] h-[400px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-4deg] mt-12">
-                <Image src="/media/images/act3/mem1.jpg" alt="Memory 1" fill className="object-cover" />
-             </div>
-             <div className="relative w-[300px] h-[400px] rounded-lg overflow-hidden shadow-2xl border border-white/10 z-10">
+          <div ref={images2Ref} className="opacity-0 absolute top-0 left-0 w-full h-full pointer-events-none">
+             {/* Left portrait */}
+             <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[250px] h-[350px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-4deg]">
                 <Image src="/media/images/act3/mem2.jpg" alt="Memory 2" fill className="object-cover" />
              </div>
-             <div className="relative w-[300px] h-[400px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[5deg] mt-8">
+             
+             {/* Right portrait */}
+             <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[250px] h-[350px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[5deg]">
                 <Image src="/media/images/act3/mem3.jpg" alt="Memory 3" fill className="object-cover" />
+             </div>
+
+             {/* Bottom landscape */}
+             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[1deg]">
+                <Image src="/media/images/act3/mem1.jpg" alt="Memory 1" fill className="object-cover" />
              </div>
           </div>
 
+          <div ref={textRef} className="opacity-0 font-serif-text italic text-3xl leading-[1.6] text-white/90 drop-shadow-md tracking-wide z-10" />
+
           {canClick && (
-            <div className="absolute top-[650px] left-0 w-full flex justify-center">
+            <div className="absolute bottom-[-50px] left-1/2 -translate-x-1/2">
               <div className="animate-pulse text-white/30 text-xs tracking-widest uppercase font-sans">
                 Click anywhere to continue
               </div>
