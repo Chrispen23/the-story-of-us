@@ -22,8 +22,8 @@ export default function ActFour() {
   const [canClick, setCanClick] = useState(false);
 
   useEffect(() => {
-    gsap.to(camera.position, { x: 0, y: 0, z: 5, duration: 0 });
-    gsap.to(camera.rotation, { x: 0, y: 0, z: 0, duration: 0 });
+    camera.position.set(0, 0, 5);
+    camera.rotation.set(0, 0, 0);
     
     // Hide letter initially
     if (letterMeshRef.current) {

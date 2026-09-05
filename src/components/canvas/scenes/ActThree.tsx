@@ -20,31 +20,45 @@ export default function ActThree() {
   const [canClick, setCanClick] = useState(false);
 
   useEffect(() => {
-    // Reset camera position for this act
-    gsap.to(camera.position, { x: 0, y: 0, z: 5, duration: 0 });
-    gsap.to(camera.rotation, { x: 0, y: 0, z: 0, duration: 0 });
-  }, []);
+    // Reset camera position for this act instantly
+    camera.position.set(0, 0, 5);
+    camera.rotation.set(0, 0, 0);
+  }, [camera]);
 
   useEffect(() => {
     if (!textRef.current) return;
     setCanClick(false);
     
     if (narrativeStep < LINES.length) {
-      gsap.to(textRef.current, { 
-        opacity: 0, 
-        duration: 1, 
-        onComplete: () => {
-          if (textRef.current) {
-            textRef.current.innerText = LINES[narrativeStep];
-            gsap.to(textRef.current, { 
-              opacity: 1, 
-              duration: 2, 
-              delay: 0.5,
-              onComplete: () => setCanClick(true)
-            });
-          }
+      if (narrativeStep === 0) {
+        // First line: appear immediately without waiting for fade-out
+        if (textRef.current) {
+          textRef.current.innerText = LINES[narrativeStep];
+          gsap.to(textRef.current, { 
+            opacity: 1, 
+            duration: 2, 
+            delay: 0.5,
+            onComplete: () => setCanClick(true)
+          });
         }
-      });
+      } else {
+        // Subsequent lines: fade out old text first
+        gsap.to(textRef.current, { 
+          opacity: 0, 
+          duration: 1, 
+          onComplete: () => {
+            if (textRef.current) {
+              textRef.current.innerText = LINES[narrativeStep];
+              gsap.to(textRef.current, { 
+                opacity: 1, 
+                duration: 2, 
+                delay: 0.5,
+                onComplete: () => setCanClick(true)
+              });
+            }
+          }
+        });
+      }
     } else {
       // Transition to Act 4
       gsap.to(textRef.current, { opacity: 0, duration: 2 });
