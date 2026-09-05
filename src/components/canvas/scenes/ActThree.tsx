@@ -91,33 +91,33 @@ export default function ActThree() {
       <Html position={[0, 0, 0]} center>
         <div className="w-[1000px] h-[800px] text-center flex flex-col items-center justify-center gap-12 pointer-events-none relative">
           
-          <div ref={images0Ref} className="opacity-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full flex justify-between items-center pointer-events-none">
-             <div className="relative w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-8deg]">
+          <div ref={images0Ref} className="opacity-0 absolute top-0 left-0 w-full h-full pointer-events-none">
+             <div className="absolute top-1/2 left-[-150px] -translate-y-1/2 w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-8deg]">
                 <Image src="/media/images/act3/chat1.jpeg" alt="Chat 1" fill className="object-cover" />
              </div>
-             <div className="relative w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[6deg]">
+             <div className="absolute top-1/2 right-[-150px] -translate-y-1/2 w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[6deg]">
                 <Image src="/media/images/act3/chat2.jpeg" alt="Chat 2" fill className="object-cover" />
              </div>
           </div>
 
           <div ref={images2Ref} className="opacity-0 absolute top-0 left-0 w-full h-full pointer-events-none">
-             {/* Left portrait */}
-             <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[250px] h-[350px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-4deg]">
+             {/* Left portrait (mem2) */}
+             <div className="absolute top-1/2 left-[-200px] -translate-y-1/2 w-[250px] h-[350px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-4deg]">
                 <Image src="/media/images/act3/mem2.jpg" alt="Memory 2" fill className="object-cover" />
              </div>
              
-             {/* Right portrait */}
-             <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[250px] h-[350px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[5deg]">
+             {/* Right portrait (mem3) */}
+             <div className="absolute top-1/2 right-[-200px] -translate-y-1/2 w-[250px] h-[350px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[5deg]">
                 <Image src="/media/images/act3/mem3.jpg" alt="Memory 3" fill className="object-cover" />
              </div>
 
-             {/* Bottom landscape */}
-             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[1deg]">
+             {/* Bottom landscape (mem1) */}
+             <div className="absolute bottom-[-80px] left-1/2 -translate-x-1/2 w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[1deg]">
                 <Image src="/media/images/act3/mem1.jpg" alt="Memory 1" fill className="object-cover" />
              </div>
           </div>
 
-          <div ref={textRef} className="opacity-0 font-serif-text italic text-3xl leading-[1.6] text-white/90 drop-shadow-md tracking-wide z-10" />
+          <div ref={textRef} className="opacity-0 font-serif-text italic text-3xl leading-[1.6] text-white/90 drop-shadow-md tracking-wide z-10 max-w-[700px] mx-auto" />
 
           {canClick && (
             <div className="absolute bottom-[-50px] left-1/2 -translate-x-1/2">
