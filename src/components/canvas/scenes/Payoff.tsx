@@ -1,5 +1,4 @@
-'use client';
-
+﻿'use client';
 import { useThree } from '@react-three/fiber';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
@@ -33,15 +32,15 @@ export default function Payoff() {
           className="w-[800px] text-center flex flex-col items-center gap-12 opacity-0 pointer-events-none"
         >
           <div className="font-sans text-sm tracking-[0.4em] text-muted-taupe border-b border-muted-taupe/30 pb-4">
-            05 SEPTEMBER 2023 â€” 05 SEPTEMBER 2026
+            05 SEPTEMBER 2023 — 05 SEPTEMBER 2026
           </div>
           
           <h1 className="text-5xl font-serif-text text-white/90 tracking-wider">
             THREE YEARS OF US.
           </h1>
 
-          <div className="font-serif italic text-2xl text-white/70 mt-8" style={{ fontFamily: 'var(--font-script)' }}>
-            [ INSERT YOUR FINAL MESSAGE HERE ]
+          <div className="font-serif italic text-3xl text-white/90 mt-8" style={{ fontFamily: 'var(--font-script)' }}>
+            Happy 3 Year Best Friend Anniversary Vivs
           </div>
         </div>
       </Html>

@@ -137,12 +137,22 @@ export default function ActFour() {
               background: 'transparent'
             }}
           >
-            <h2 className="text-4xl mb-8" style={{ fontFamily: 'var(--font-script)' }}>My Dearest,</h2>
-            <div className="text-lg leading-loose space-y-6 flex-1 text-deep-espresso/80">
-              <p>[ INSERT YOUR PERSONAL LETTER HERE ]</p>
-              <p>This is where the actual letter will go. It will be revealed beautifully and physically onto the page.</p>
-              <p>For now, click anywhere to see the final payoff.</p>
-            </div>
+              <h2 className="text-3xl mb-4 text-center" style={{ fontFamily: 'var(--font-script)' }}>Dear Best Friend,</h2>
+              <div className="text-[11px] leading-snug space-y-2 flex-1 text-deep-espresso/90 text-left">
+                <p>This is for you. I cannot measure how much you have done for me and things you have sacrificed for me, your impact in my life is visible, your love is visible, your care is visible, your support is visible, your value is visible and I don't think I can match that value. Since the day we met on the 5th of September 2023, you have impacted me in a big way, your life speaks so much of Christ's transformation, and I admire that.</p>
+                
+                <p>You have been one of the few people to support me in everything, without ridicule and with no sense of half hearted-ness (if that's a word😂), and for that, I appreciate your value, your worth. Sure I cannot see it fully how God sees it, but I see the picture, and I thank God for allowing me to see it, its a beautiful picture, truly and genuinely crafted and painted by God Himself. I can only admire that picture and show love in the many ways I can, even if I am far, I still remember. Psalms 7:17 calls me to give thanks to the Lord due to His righteousness, and I thank God for you, for thinking about you, for crafting you, for making you who you are, for creating you, for protecting you, for everything He has done for you, God is really great to you and I am thankful to Him.</p>
+                
+                <p>And as His son, I hope I can love you and care for you according to His standards, if not, I pray He trains me, I would rather prefer prolonging the marriage to make sure He now calls me fit to be your life partner but I thank God for bringing you in my life. On this day, 3 years ago, whoever knew this girl in an orange dress who sat beside me would have this huge impact in my life and mean so much to me, I wouldn't have even imagined it, I always thought people come and go, apart from family, no one stayed, but you did, you did more than stay.</p>
+                
+                <p>I have flaws, many of them, things people would probably detach from because of them, but you stayed. I don't know what you saw, but I am glad you stayed, you helped heal a part of me that never kept people close. If you ask me honestly, you are way above my level, in Shona people would say, "arikutanha dzaasingasvikire" meaning, "he is trying to reach for what he cannot reach," and for me, I see you at the very top, at a height higher than the Burj Khalifa. I don't know where I am, but I want you to stay there, and go higher than that, be the best because you are the best.</p>
+                
+                <p>On this day, I acknowledge your value as my best friend, you mean so much to me, and I appreciate your value in my life. It's only 3 days till our 1 year and 7 months anniversary, and technically, today is our Best Friend Anniversary, so I will be your best friend today. Best friend, I am sorry if I am crossing boundaries, but I think I have a crush on you, better yet, I think it's more than that. I tried to hold it in, but I admire you so much, and your value and your walk with God and your love for Jesus, I tried being only your friend, but when it came to you, I couldn't help not protecting you and providing for you.</p>
+
+                <p>I would really love to call you my amor, it's no pressure, I just want to convey my feelings to you, this is where I stand, I hope you get to enjoy this small gesture I prepared for you. I will end it here before it ends up a whole book website😂</p>
+                
+                <p className="mt-4 text-right italic font-serif text-sm">Love from Chris (Your Best Friend)</p>
+              </div>
             {canClick && narrativeStep === PRE_LINES.length && (
               <div className="animate-pulse text-deep-espresso/40 text-xs tracking-widest uppercase font-sans mt-8">
                 Click to fold away

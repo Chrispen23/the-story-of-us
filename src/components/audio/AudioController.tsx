@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useEffect, useRef } from 'react';
 import { useStore } from '@/store/useStore';
@@ -11,7 +11,7 @@ export default function AudioController() {
     // Create audio instance once
     if (!audioRef.current && typeof window !== 'undefined') {
       audioRef.current = new Audio('/media/audio/bgm.mp3');
-      audioRef.current.loop = false; // Let it play through
+      audioRef.current.loop = true; // Let it play on loop
       audioRef.current.volume = 0; // Start at 0 to fade in
     }
 
