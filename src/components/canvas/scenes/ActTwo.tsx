@@ -84,10 +84,9 @@ export default function ActTwo() {
       if (p1) gsap.to(p1.position, { y: -10, duration: 2, ease: 'power2.in' });
       if (p2) gsap.to(p2.position, { y: -10, duration: 2, ease: 'power2.in', delay: 0.2 });
       if (note) gsap.to(note.position, { y: -10, duration: 2, ease: 'power2.in', delay: 0.4 });
-    }
-    else if (narrativeStep === 3) {
+      
       // Camera pushes past into the darkness to transition to Act 3
-      gsap.to(camera.position, { z: -10, duration: 3, ease: 'power2.inOut', onComplete: () => {
+      gsap.to(camera.position, { z: -10, duration: 3, ease: 'power2.inOut', delay: 0.5, onComplete: () => {
         setAct('act3');
       }});
       if (textRef.current) gsap.to(textRef.current, { opacity: 0, duration: 1 });
