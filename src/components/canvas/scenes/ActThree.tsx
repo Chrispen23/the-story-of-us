@@ -112,7 +112,7 @@ export default function ActThree() {
              </div>
 
              {/* Bottom landscape (mem2) */}
-             <div className="absolute bottom-[-80px] left-1/2 -translate-x-1/2 w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[1deg]">
+             <div className="absolute bottom-[40px] left-1/2 -translate-x-1/2 w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[1deg]">
                 <Image src="/media/images/act3/mem2.jpg" alt="Memory 2" fill className="object-cover" />
              </div>
           </div>
