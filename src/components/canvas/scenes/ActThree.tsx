@@ -27,13 +27,17 @@ export default function ActThree() {
   }, [camera]);
 
   useEffect(() => {
-    if (!textRef.current) return;
-    setCanClick(false);
-    
-    if (narrativeStep < LINES.length) {
-      if (narrativeStep === 0) {
-        // First line: appear immediately without waiting for fade-out
-        if (textRef.current) {
+    const runTextAnimation = () => {
+      if (!textRef.current) {
+        requestAnimationFrame(runTextAnimation);
+        return;
+      }
+      
+      setCanClick(false);
+      
+      if (narrativeStep < LINES.length) {
+        if (narrativeStep === 0) {
+          // First line: appear immediately without waiting for fade-out
           textRef.current.innerText = LINES[narrativeStep];
           gsap.to(textRef.current, { 
             opacity: 1, 
@@ -41,33 +45,35 @@ export default function ActThree() {
             delay: 0.5,
             onComplete: () => setCanClick(true)
           });
+        } else {
+          // Subsequent lines: fade out old text first
+          gsap.to(textRef.current, { 
+            opacity: 0, 
+            duration: 1, 
+            onComplete: () => {
+              if (textRef.current) {
+                textRef.current.innerText = LINES[narrativeStep];
+                gsap.to(textRef.current, { 
+                  opacity: 1, 
+                  duration: 2, 
+                  delay: 0.5,
+                  onComplete: () => setCanClick(true)
+                });
+              }
+            }
+          });
         }
       } else {
-        // Subsequent lines: fade out old text first
-        gsap.to(textRef.current, { 
-          opacity: 0, 
-          duration: 1, 
-          onComplete: () => {
-            if (textRef.current) {
-              textRef.current.innerText = LINES[narrativeStep];
-              gsap.to(textRef.current, { 
-                opacity: 1, 
-                duration: 2, 
-                delay: 0.5,
-                onComplete: () => setCanClick(true)
-              });
-            }
-          }
-        });
+        // Transition to Act 4
+        gsap.to(textRef.current, { opacity: 0, duration: 2 });
+        gsap.to(camera.position, { z: -5, duration: 3, ease: 'power2.inOut', onComplete: () => {
+          setAct('act4');
+        }});
       }
-    } else {
-      // Transition to Act 4
-      gsap.to(textRef.current, { opacity: 0, duration: 2 });
-      gsap.to(camera.position, { z: -5, duration: 3, ease: 'power2.inOut', onComplete: () => {
-        setAct('act4');
-      }});
-    }
-  }, [narrativeStep]);
+    };
+
+    runTextAnimation();
+  }, [narrativeStep, camera, setAct]);
 
   return (
     <group>

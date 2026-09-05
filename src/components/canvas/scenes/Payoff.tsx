@@ -14,10 +14,16 @@ export default function Payoff() {
     camera.position.set(0, 0, 0);
     gsap.to(camera.position, { z: 5, duration: 10, ease: 'power1.out' });
 
-    if (textRef.current) {
+    const runTextAnimation = () => {
+      if (!textRef.current) {
+        requestAnimationFrame(runTextAnimation);
+        return;
+      }
       gsap.to(textRef.current, { opacity: 1, duration: 4, delay: 1 });
-    }
-  }, []);
+    };
+
+    runTextAnimation();
+  }, [camera]);
 
   return (
     <group>

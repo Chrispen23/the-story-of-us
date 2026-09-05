@@ -35,14 +35,17 @@ export default function ActFour() {
   }, []);
 
   useEffect(() => {
-    setCanClick(false);
-    
-    if (narrativeStep < PRE_LINES.length) {
-      if (!textRef.current) return;
-      gsap.to(textRef.current, { 
-        opacity: 0, 
-        duration: 1, 
-        onComplete: () => {
+    const runTextAnimation = () => {
+      // Need both refs depending on the step
+      if (narrativeStep < PRE_LINES.length && !textRef.current) {
+        requestAnimationFrame(runTextAnimation);
+        return;
+      }
+      
+      setCanClick(false);
+      
+      if (narrativeStep < PRE_LINES.length) {
+        if (narrativeStep === 0) {
           if (textRef.current) {
             textRef.current.innerText = PRE_LINES[narrativeStep];
             gsap.to(textRef.current, { 
@@ -52,31 +55,48 @@ export default function ActFour() {
               onComplete: () => setCanClick(true)
             });
           }
+        } else {
+          gsap.to(textRef.current, { 
+            opacity: 0, 
+            duration: 1, 
+            onComplete: () => {
+              if (textRef.current) {
+                textRef.current.innerText = PRE_LINES[narrativeStep];
+                gsap.to(textRef.current, { 
+                  opacity: 1, 
+                  duration: 2, 
+                  delay: 0.5,
+                  onComplete: () => setCanClick(true)
+                });
+              }
+            }
+          });
         }
-      });
-    } else if (narrativeStep === PRE_LINES.length) {
-      // Bring up the letter
-      if (textRef.current) gsap.to(textRef.current, { opacity: 0, duration: 1 });
-      
-      if (letterMeshRef.current) {
-        gsap.to(letterMeshRef.current.position, { y: 0, duration: 3, ease: 'power3.out' });
-        gsap.to(letterMeshRef.current.rotation, { x: 0, duration: 3, ease: 'power3.out' });
-        gsap.to(camera.position, { z: 3, duration: 4, ease: 'power2.inOut', onComplete: () => {
-          if (letterHtmlRef.current) {
-            gsap.to(letterHtmlRef.current, { opacity: 1, duration: 2 });
-            setCanClick(true);
-          }
+      } else if (narrativeStep === PRE_LINES.length) {
+        // Show letter
+        if (textRef.current) gsap.to(textRef.current, { opacity: 0, duration: 2 });
+        if (letterMeshRef.current) {
+          gsap.to(letterMeshRef.current.position, { y: 0, duration: 3, ease: 'power3.out' });
+          gsap.to(letterMeshRef.current.rotation, { x: 0, duration: 3, ease: 'power3.out' });
+          gsap.to(camera.position, { z: 3, duration: 4, ease: 'power2.inOut', onComplete: () => {
+            if (letterHtmlRef.current) {
+              gsap.to(letterHtmlRef.current, { opacity: 1, duration: 2 });
+              setCanClick(true);
+            }
+          }});
+        }
+      } else if (narrativeStep > PRE_LINES.length) {
+        // Transition to Payoff
+        gsap.to(camera.position, { z: 0, duration: 3, ease: 'power2.in' });
+        if (letterHtmlRef.current) gsap.to(letterHtmlRef.current, { opacity: 0, duration: 1 });
+        if (letterMeshRef.current) gsap.to(letterMeshRef.current.material, { opacity: 0, duration: 2, transparent: true, onComplete: () => {
+          setAct('payoff');
         }});
       }
-    } else if (narrativeStep > PRE_LINES.length) {
-      // Transition to Payoff
-      gsap.to(camera.position, { z: 0, duration: 3, ease: 'power2.in' });
-      if (letterHtmlRef.current) gsap.to(letterHtmlRef.current, { opacity: 0, duration: 1 });
-      if (letterMeshRef.current) gsap.to(letterMeshRef.current.material, { opacity: 0, duration: 2, transparent: true, onComplete: () => {
-        setAct('payoff');
-      }});
-    }
-  }, [narrativeStep]);
+    };
+
+    runTextAnimation();
+  }, [narrativeStep, camera, setAct]);
 
   return (
     <group>
