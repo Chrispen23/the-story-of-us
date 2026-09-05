@@ -48,7 +48,10 @@ export default function ActTwo() {
               textRef.current.innerHTML = "<p style='font-family: var(--font-serif)'>Some memories don't look important when you're living them.</p><p style='font-family: var(--font-serif)'>Funny how that changes.</p>";
               break;
           }
-          gsap.to(textRef.current, { opacity: 1, duration: 1 });
+          
+          if (narrativeStep < 4) {
+            gsap.to(textRef.current, { opacity: 1, duration: 1 });
+          }
         }
       }
     });
@@ -80,6 +83,12 @@ export default function ActTwo() {
       if (note) gsap.to(note.position, { z: 0, duration: 1, ease: 'power2.out' });
     }
     else if (narrativeStep === 3) {
+      // Photos fall away into darkness
+      if (p1) gsap.to(p1.position, { y: -10, duration: 2, ease: 'power2.in' });
+      if (p2) gsap.to(p2.position, { y: -10, duration: 2, ease: 'power2.in', delay: 0.2 });
+      if (note) gsap.to(note.position, { y: -10, duration: 2, ease: 'power2.in', delay: 0.4 });
+    }
+    else if (narrativeStep === 4) {
       // Camera pushes past into the darkness to transition to Act 3
       gsap.to(camera.position, { z: -10, duration: 3, ease: 'power2.inOut', onComplete: () => {
         setAct('act3');
@@ -91,6 +100,19 @@ export default function ActTwo() {
 
   return (
     <group ref={groupRef}>
+      {/* Invisible plane to progress past step 3 */}
+      {narrativeStep === 3 && (
+        <mesh 
+          position={[0, 0, 0]} 
+          onClick={() => nextStep()}
+          onPointerOver={() => document.body.style.cursor = 'pointer'}
+          onPointerOut={() => document.body.style.cursor = 'auto'}
+        >
+          <planeGeometry args={[100, 100]} />
+          <meshBasicMaterial transparent opacity={0} depthWrite={false} />
+        </mesh>
+      )}
+
       {/* HTML Narrative Layer */}
       <Html position={[0, 3, 0]} center zIndexRange={[50, 0]}>
         <div ref={textRef} className="w-[800px] text-center opacity-0 flex flex-col gap-4 text-white drop-shadow-md text-xl tracking-wide pointer-events-none" />
