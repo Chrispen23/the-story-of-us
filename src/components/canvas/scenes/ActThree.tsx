@@ -101,9 +101,9 @@ export default function ActThree() {
           </div>
 
           <div ref={images2Ref} className="opacity-0 absolute top-0 left-0 w-full h-full pointer-events-none">
-             {/* Left portrait (mem2) */}
+             {/* Left portrait (mem1) */}
              <div className="absolute top-1/2 left-[-200px] -translate-y-1/2 w-[250px] h-[350px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-4deg]">
-                <Image src="/media/images/act3/mem2.jpg" alt="Memory 2" fill className="object-cover" />
+                <Image src="/media/images/act3/mem1.jpg" alt="Memory 1" fill className="object-cover" />
              </div>
              
              {/* Right portrait (mem3) */}
@@ -111,9 +111,9 @@ export default function ActThree() {
                 <Image src="/media/images/act3/mem3.jpg" alt="Memory 3" fill className="object-cover" />
              </div>
 
-             {/* Bottom landscape (mem1) */}
+             {/* Bottom landscape (mem2) */}
              <div className="absolute bottom-[-80px] left-1/2 -translate-x-1/2 w-[400px] h-[250px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[1deg]">
-                <Image src="/media/images/act3/mem1.jpg" alt="Memory 1" fill className="object-cover" />
+                <Image src="/media/images/act3/mem2.jpg" alt="Memory 2" fill className="object-cover" />
              </div>
           </div>
 
