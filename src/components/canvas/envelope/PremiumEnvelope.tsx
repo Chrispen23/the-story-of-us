@@ -101,10 +101,11 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
   const [isHovered, setIsHovered] = useState(false);
   const shapes = useMemo(() => createShapes(), []);
 
+  const isTransitioningRef = useRef(false);
+
   // Initial Camera Setup
   useEffect(() => {
     camera.position.set(0, 3, 9);
-    camera.lookAt(0, 0, 0);
     
     // Initial cinematic settle
     gsap.fromTo(camera.position, 
@@ -122,15 +123,15 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
       groupRef.current.rotation.z = Math.sin(time * 0.3) * 0.005;
 
       // Subtle mouse parallax
-      const targetRotX = (state.pointer.y * Math.PI) / 30;
-      const targetRotY = (state.pointer.x * Math.PI) / 20;
-
-      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, targetRotX - 0.2, 0.05);
-      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, 0.05);
+      const x = (state.pointer.x * state.viewport.width) / 100;
+      const y = (state.pointer.y * state.viewport.height) / 100;
+      groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, -y * 0.1, 0.05);
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, x * 0.1, 0.05);
     }
     
-    if (isOpened) {
-      camera.lookAt(0, 0, 0);
+    // Smoothly track target unless we are transitioning out
+    if (!isTransitioningRef.current && cameraTargetRef.current) {
+      camera.lookAt(cameraTargetRef.current.position);
     }
   });
 
@@ -174,8 +175,9 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
     tl.to(letterRef.current!.position, { y: 2.6, z: 0.5, duration: 2, ease: 'power3.inOut' }, 2.0);
     tl.to(letterRef.current!.rotation, { x: -0.15, duration: 2, ease: 'power3.inOut' }, 2.0);
 
-    // PHASE 5: Camera pushes to letter
+    // PHASE 5: Camera pushes to letter and pans up
     tl.to(camera.position, { y: 2.8, z: 4.5, duration: 2.5, ease: 'power2.inOut' }, 2.4);
+    tl.to(cameraTargetRef.current!.position, { y: 2.6, duration: 2.5, ease: 'power2.inOut' }, 2.4);
     
     // We do NOT call onComplete automatically here anymore.
     // The user must interact with the letter to continue.
@@ -185,16 +187,18 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
     e.stopPropagation();
     if (!isOpened) return;
     
-    // Start audio if not already started
-    useStore.getState().startAudio();
-    
     const htmlEl = document.getElementById('letter-content');
     if (htmlEl) htmlEl.style.opacity = '0';
+
+    // Transition out: stop tracking target
+    isTransitioningRef.current = true;
 
     // Push camera through the letter into the darkness
     gsap.to(camera.position, { z: -5, duration: 2, ease: 'power3.inOut', onComplete: () => {
       if (onComplete) onComplete();
     }});
+    // Smoothly level camera out to look straight into the void for Act Two
+    gsap.to(camera.rotation, { x: 0, y: 0, z: 0, duration: 2, ease: 'power3.inOut' });
   };
 
   return (
@@ -211,6 +215,9 @@ export default function PremiumEnvelope({ onComplete }: { onComplete: () => void
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
       )}
+
+      {/* Camera Target */}
+      <group ref={cameraTargetRef} position={[0, 0, 0]} />
 
       {/* ENVIRONMENT & LIGHTING */}
       <color attach="background" args={['#0F0D0C']} />

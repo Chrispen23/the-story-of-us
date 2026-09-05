@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useProgress } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -51,7 +51,10 @@ export default function LoadingSequence() {
           <motion.button
             animate={{ opacity: showButton ? 1 : 0, y: showButton ? 0 : 20 }}
             transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-            onClick={() => setAct('prologue')}
+            onClick={() => {
+              useStore.getState().startAudio();
+              setAct('prologue');
+            }}
             disabled={!showButton}
             className="mt-24 px-10 py-4 font-sans text-xs tracking-[0.2em] uppercase text-obsidian bg-soft-ivory hover:bg-white transition-all duration-700 ease-out disabled:pointer-events-none"
           >
