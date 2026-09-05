@@ -111,7 +111,7 @@ export default function ActTwo() {
 
       {/* HTML Narrative Layer */}
       <Html position={[0, 3, 0]} center zIndexRange={[50, 0]}>
-        <div ref={textRef} className="w-[800px] text-center opacity-0 flex flex-col gap-4 text-white drop-shadow-md text-xl tracking-wide pointer-events-none" />
+        <div ref={textRef} className="w-[800px] text-center opacity-0 flex flex-col gap-4 text-white drop-shadow-md text-xl tracking-wide pointer-events-none scale-[0.4] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-center" />
       </Html>
 
       {/* Memory Objects */}

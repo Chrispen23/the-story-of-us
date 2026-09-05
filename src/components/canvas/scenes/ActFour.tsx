@@ -112,7 +112,7 @@ export default function ActFour() {
       </mesh>
 
       <Html position={[0, 0, 0]} center>
-        <div className="w-[800px] text-center flex flex-col gap-8 pointer-events-none">
+        <div className="w-[800px] text-center flex flex-col gap-8 pointer-events-none scale-[0.4] sm:scale-[0.6] md:scale-75 lg:scale-100 origin-center">
           <div ref={textRef} className="opacity-0 font-serif-text italic text-3xl text-white/90 drop-shadow-md tracking-wide" />
           {canClick && narrativeStep < PRE_LINES.length && (
             <div className="animate-pulse text-white/30 text-xs tracking-widest uppercase font-sans mt-12">
@@ -130,7 +130,7 @@ export default function ActFour() {
         <Html transform position={[0, 0, 0.01]} distanceFactor={2} zIndexRange={[100, 0]}>
           <div 
             ref={letterHtmlRef}
-            className="w-[500px] h-[750px] opacity-0 flex flex-col items-center justify-start p-12 text-center pointer-events-auto overflow-y-auto custom-scrollbar"
+            className="w-[90vw] max-w-[500px] h-[750px] opacity-0 flex flex-col items-center justify-start p-6 md:p-12 text-center pointer-events-auto overflow-y-auto custom-scrollbar"
             style={{ 
               fontFamily: 'var(--font-serif)',
               color: '#3A2E28',

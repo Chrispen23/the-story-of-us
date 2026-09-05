@@ -89,7 +89,7 @@ export default function ActThree() {
       </mesh>
 
       <Html position={[0, 0, 0]} center>
-        <div className="w-[1000px] h-[800px] text-center flex flex-col items-center justify-center gap-12 pointer-events-none relative">
+        <div className="w-[1000px] h-[800px] text-center flex flex-col items-center justify-center gap-12 pointer-events-none relative scale-[0.35] sm:scale-[0.5] md:scale-75 lg:scale-100 origin-center">
           
           <div ref={images0Ref} className="opacity-0 absolute top-0 left-0 w-full h-full pointer-events-none">
              <div className="absolute top-1/2 left-[-150px] -translate-y-1/2 w-[300px] h-[500px] rounded-lg overflow-hidden shadow-2xl border border-white/10 rotate-[-8deg]">

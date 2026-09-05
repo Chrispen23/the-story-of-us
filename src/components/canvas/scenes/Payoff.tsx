@@ -33,7 +33,7 @@ export default function Payoff() {
   return (
     <group>
       <Html position={[0, 0, 0]} center>
-        <div className="w-[1200px] h-[600px] relative flex justify-center items-center pointer-events-none">
+        <div className="w-[1200px] h-[600px] relative flex justify-center items-center pointer-events-none scale-[0.3] sm:scale-[0.5] md:scale-75 lg:scale-100 origin-center">
           
           <div 
             ref={leftImageRef}
